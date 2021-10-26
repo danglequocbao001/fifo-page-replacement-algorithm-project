@@ -1,9 +1,9 @@
-let reference_string = [1, 2, 3, 4, 2, 1, 5, 6, 2, 1, 2, 3, 7, 6, 3];
-// let reference_string = [
-//   7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1,
-// ];
+// let reference_string = [1, 2, 3, 4, 2, 1, 5, 6, 2, 1, 2, 3, 7, 6, 3];
+let reference_string = [
+  7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1,
+];
 let pageFaults = 0;
-let frames = 4,
+let frames = 3,
   counter,
   pagesLength = reference_string.length,
   pagesFaultsArray = ["✘"];
