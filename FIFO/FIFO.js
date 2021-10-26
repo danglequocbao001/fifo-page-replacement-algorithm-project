@@ -1,21 +1,3 @@
-function tableCreate(chore, pages) {
-  // console.log(temp);
-  const body = document.body,
-    tbl = document.createElement("table");
-  tbl.style.width = "100px";
-  // tbl.style.border = "1px solid black";
-
-  for (let i = 0; i < pages; i++) {
-    const tr = tbl.insertRow();
-    for (let j = 0; j < 4; j++) {
-      const td = tr.insertCell();
-      td.appendChild(document.createTextNode(chore[i][j]));
-      td.style.border = "1px solid black";
-    }
-  }
-  body.appendChild(tbl);
-}
-
 let reference_string = [1, 2, 3, 4, 2, 1, 5, 6, 2, 1, 2, 3, 7, 6, 3];
 let page_faults = 0,
   m,
@@ -25,11 +7,30 @@ let page_faults = 0,
   frames;
 pages = 15;
 frames = 4;
+
+function tableCreate(chore, pages) {
+  const body = document.body,
+    tbl = document.createElement("table");
+  tbl.style.width = "500px";
+  tbl.style.height = "100px";
+  tbl.style.textAlign = "center";
+
+  for (let i = 0; i < 4; i++) {
+    const tr = tbl.insertRow();
+    for (let j = 0; j < pages; j++) {
+      const td = tr.insertCell();
+      td.appendChild(document.createTextNode(chore[j][i]));
+      td.style.border = "1px solid black";
+    }
+  }
+  body.appendChild(tbl);
+}
+
 let temp = new Array();
 let answer = new Array();
 temp.length = frames;
 for (m = 0; m < frames; m++) {
-  temp[m] = null;
+  temp[m] = "";
 }
 for (m = 0; m < pages; m++) {
   s = 0;
