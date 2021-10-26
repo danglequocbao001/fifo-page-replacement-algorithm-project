@@ -5,6 +5,22 @@ let pageFaults = 0,
   pagesLength = page.length,
   pagesFaultsArray = ["✘"];
 
+var inputPage = document.getElementById("inputPage");
+inputPage.addEventListener("keyup", function (event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("buttonRun").click();
+  }
+});
+
+var inputFrame = document.getElementById("inputFrame");
+inputFrame.addEventListener("keyup", function (event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("buttonRun").click();
+  }
+});
+
 async function PageReplacementFIFOAlgorithm() {
   let answer = new Array();
   let tempAnswer = [frame];
@@ -73,6 +89,7 @@ async function handlePagesFaultsArray(handledAnswer) {
 }
 
 function tableGenerator(handledAnswer, page) {
+  // document.querySelector("table").innerHTML = "";
   let tempFrames = 0;
   const body = document.body,
     mainTable = document.createElement("table");
@@ -153,6 +170,7 @@ function tableGenerator(handledAnswer, page) {
 }
 
 function buttonRunAlg() {
+  document.querySelector("table").remove();
   page = JSON.parse("[" + document.querySelector("#inputPage").value + "]");
   frame = parseInt(document.querySelector("#inputFrame").value);
   (pageFaults = 0),
@@ -163,14 +181,14 @@ function buttonRunAlg() {
 }
 
 function interpretCode() {
-  pagesLength > 0 &&
-    frame > 0 &&
-    page.length > 0 &&
-    PageReplacementFIFOAlgorithm().then((answer) => {
-      handleAnswerVariableTo2DArray(answer).then((handledAnswer) => {
-        tableGenerator(handledAnswer, page);
-      });
+  // pagesLength > 0 &&
+  //   frame > 0 &&
+  //   page.length > 0 &&
+  PageReplacementFIFOAlgorithm().then((answer) => {
+    handleAnswerVariableTo2DArray(answer).then((handledAnswer) => {
+      tableGenerator(handledAnswer, page);
     });
+  });
 }
 
 interpretCode();
