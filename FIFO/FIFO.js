@@ -8,7 +8,50 @@ let page_faults = 0,
 pages = 15;
 frames = 4;
 
-function tableCreate(chore, pages) {
+async function PageReplacementFIFOAlgorithm() {
+  let temp = new Array();
+  let answer = new Array();
+  temp.length = frames;
+  for (m = 0; m < frames; m++) {
+    temp[m] = "";
+  }
+  for (m = 0; m < pages; m++) {
+    s = 0;
+    for (n = 0; n < frames; n++) {
+      if (reference_string[m] == temp[n]) {
+        s++;
+        page_faults--;
+      }
+    }
+    page_faults++;
+    if (page_faults <= frames && s == 0) {
+      temp[m] = reference_string[m];
+    } else if (s == 0) {
+      temp[(page_faults - 1) % frames] = reference_string[m];
+    }
+    answer = answer.concat(temp);
+  }
+  return answer;
+}
+
+async function handleAnswerVariableTo2DArray(answer) {
+  let count = 0;
+  let chore = [];
+  toPush = [];
+  for (let i = 0; i < 15; i++) {
+    for (let j = 0; j < 4; j++) {
+      toPush.push(answer[count]);
+
+      count++;
+    }
+    chore.push(toPush);
+    toPush = [];
+  }
+  console.log(chore);
+  return chore;
+}
+
+function tableGenerator(chore, pages) {
   const body = document.body,
     tbl = document.createElement("table");
   tbl.style.width = "500px";
@@ -26,47 +69,9 @@ function tableCreate(chore, pages) {
   body.appendChild(tbl);
 }
 
-let temp = new Array();
-let answer = new Array();
-temp.length = frames;
-for (m = 0; m < frames; m++) {
-  temp[m] = "";
-}
-for (m = 0; m < pages; m++) {
-  s = 0;
-  for (n = 0; n < frames; n++) {
-    if (reference_string[m] == temp[n]) {
-      s++;
-      page_faults--;
-    }
-  }
-  page_faults++;
-  if (page_faults <= frames && s == 0) {
-    temp[m] = reference_string[m];
-  } else if (s == 0) {
-    temp[(page_faults - 1) % frames] = reference_string[m];
-  }
-  //   for (n = 0; n < frames; n++) {
-  //     console.log(temp[n]);
-  //   }
-  answer = answer.concat(temp);
-  // console.log(answer)
-  // temp.map((value) => {
-  //   console.log(value);
-  // });
-}
-// console.log(page_faults);
-let count = 0;
-let chore = [];
-toPush = [];
-for (let i = 0; i < 15; i++) {
-  for (let j = 0; j < 4; j++) {
-    toPush.push(answer[count]);
-
-    count++;
-  }
-  chore.push(toPush);
-  toPush = [];
-}
-console.log(chore);
-tableCreate(chore, pages);
+PageReplacementFIFOAlgorithm().then((answer) => {
+  handleAnswerVariableTo2DArray(answer).then((chore) => {
+    tableGenerator(chore, pages);
+    console.log(page_faults);
+  });
+});
