@@ -1,36 +1,47 @@
-// let reference_string = [1, 2, 3, 4, 2, 1, 5, 6, 2, 1, 2, 3, 7, 6, 3];
-let reference_string = [7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1];
-let frames = 3;
-let pageFaults = 0,
+let reference_string = [1, 2, 3, 4, 2, 1, 5, 6, 2, 1, 2, 3, 7, 6, 3];
+// let reference_string = [
+//   7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1,
+// ];
+let pageFaults = 0;
+let frames = 4,
   counter,
-  pages = reference_string.length,
+  pagesLength = reference_string.length,
   pagesFaultsArray = ["✘"];
 
 async function PageReplacementFIFOAlgorithm() {
-  let tempAnswer = new Array();
   let answer = new Array();
-  // tempAnswer.length = frames;
+  let tempAnswer = [frames];
+
   for (let i = 0; i < frames; i++) {
-    tempAnswer[i] = "";
+    tempAnswer[i] = -1;
   }
-  for (let i = 0; i < pages; i++) {
-    counter = 0;
+
+  for (let i = 0; i < reference_string.length; i++) {
+    let counter = 0;
     for (let j = 0; j < frames; j++) {
-      if (reference_string[i] == tempAnswer[j]) {
+      if (reference_string[i] === tempAnswer[j]) {
         counter++;
         pageFaults--;
       }
     }
     pageFaults++;
-    if (pageFaults <= frames && counter == 0) {
+    if (pageFaults <= frames && counter === 0) {
       tempAnswer[i] = reference_string[i];
-    } else if (counter == 0) {
-      tempAnswer[(pageFaults - 1) % frames] = reference_string[i];
+    } else if (counter === 0) {
+      let pageHitAndPageRatio = (pageFaults - 1) % frames;
+      tempAnswer[pageHitAndPageRatio] = reference_string[i];
     }
-    console.log(tempAnswer)
-    answer = answer.concat(tempAnswer);
+
+    let elements = [];
+    //printing elements
+    for (let j = 0; j < frames; j++) {
+      elements.push(tempAnswer[j]);
+    }
+    console.log(elements);
+    answer = answer.concat(elements);
   }
-  console.log(answer)
+
+  console.log("Total Page Faults: ", pageFaults);
   return answer;
 }
 
@@ -38,8 +49,8 @@ async function handleAnswerVariableTo2DArray(answer) {
   let count = 0;
   let handledAnswer = [];
   tempHandledAnswer = [];
-  for (let i = 0; i < pages; i++) {
-    for (let j = 0; j < 4; j++) {
+  for (let i = 0; i < pagesLength; i++) {
+    for (let j = 0; j < frames; j++) {
       tempHandledAnswer.push(answer[count]);
       count++;
     }
@@ -50,7 +61,7 @@ async function handleAnswerVariableTo2DArray(answer) {
 }
 
 async function handlePagesFaultsArray(handledAnswer) {
-  for (let i = 0; i < pages; i++) {
+  for (let i = 0; i < pagesLength; i++) {
     if (i + 1 != undefined) {
       if (
         JSON.stringify(handledAnswer[i]) == JSON.stringify(handledAnswer[i + 1])
@@ -79,7 +90,7 @@ function tableGenerator(handledAnswer, reference_string) {
 
   for (let i = 0; i < 1; i++) {
     const row = mainTable.insertRow();
-    for (let j = 0; j <= pages; j++) {
+    for (let j = 0; j <= pagesLength; j++) {
       const cell = row.insertCell();
       if (j == 0) {
         cell.appendChild(document.createTextNode("Trang"));
@@ -96,7 +107,7 @@ function tableGenerator(handledAnswer, reference_string) {
 
   for (let i = 0; i < frames; i++) {
     const row = mainTable.insertRow();
-    for (let j = 0; j <= pages; j++) {
+    for (let j = 0; j <= pagesLength; j++) {
       const cell = row.insertCell();
       if (j == 0) {
         if (tempFrames <= frames) {
@@ -114,7 +125,7 @@ function tableGenerator(handledAnswer, reference_string) {
 
   for (let i = 0; i < 1; i++) {
     const row = mainTable.insertRow();
-    for (let j = 0; j <= pages; j++) {
+    for (let j = 0; j <= pagesLength; j++) {
       const cell = row.insertCell();
       if (j == 0) {
         cell.appendChild(document.createTextNode("Trạng thái"));
@@ -137,7 +148,7 @@ function tableGenerator(handledAnswer, reference_string) {
 }
 
 function interpretCode() {
-  pages > 0 &&
+  pagesLength > 0 &&
     frames > 0 &&
     reference_string.length > 0 &&
     PageReplacementFIFOAlgorithm().then((answer) => {
