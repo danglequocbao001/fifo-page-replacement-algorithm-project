@@ -32,13 +32,11 @@ async function PageReplacementFIFOAlgorithm() {
       tempAnswer[pageHitAndPageRatio] = reference_string[i];
     }
 
-    let elements = [];
-    //printing elements
+    let elementsAnswer = [];
     for (let j = 0; j < frames; j++) {
-      elements.push(tempAnswer[j]);
+      elementsAnswer.push(tempAnswer[j]);
     }
-    console.log(elements);
-    answer = answer.concat(elements);
+    answer = answer.concat(elementsAnswer);
   }
 
   console.log("Total Page Faults: ", pageFaults);
@@ -153,10 +151,7 @@ function interpretCode() {
     reference_string.length > 0 &&
     PageReplacementFIFOAlgorithm().then((answer) => {
       handleAnswerVariableTo2DArray(answer).then((handledAnswer) => {
-        // console.log(JSON.stringify(handledAnswer[3]) == JSON.stringify(handledAnswer[4]));
         tableGenerator(handledAnswer, reference_string);
-        // console.log(pageFaults);
-        // console.log(pagesFaultsArray);
       });
     });
 }
