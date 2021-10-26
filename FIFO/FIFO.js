@@ -1,43 +1,44 @@
-// let referenceString = [1, 2, 3, 4, 2, 1, 5, 6, 2, 1, 2, 3, 7, 6, 3];
-let referenceString = [
-  7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1,
-];
-let frames = 4;
+let page = [7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1];
+let frame = 3;
 let pageFaults = 0,
   counter,
-  pagesLength = referenceString.length,
+  pagesLength = page.length,
   pagesFaultsArray = ["✘"];
 
 async function PageReplacementFIFOAlgorithm() {
   let answer = new Array();
-  let tempAnswer = [frames];
+  let tempAnswer = [frame];
 
-  for (let i = 0; i < frames; i++) {
+  for (let i = 0; i < frame; i++) {
     tempAnswer[i] = "";
   }
 
-  for (let i = 0; i < referenceString.length; i++) {
+  for (let i = 0; i < page.length; i++) {
     let counter = 0;
-    for (let j = 0; j < frames; j++) {
-      if (referenceString[i] === tempAnswer[j]) {
+    for (let j = 0; j < frame; j++) {
+      if (page[i] === tempAnswer[j]) {
         counter++;
         pageFaults--;
       }
     }
     pageFaults++;
-    if (pageFaults <= frames && counter === 0) {
-      tempAnswer[i] = referenceString[i];
+    if (pageFaults <= frame && counter === 0) {
+      tempAnswer[i] = page[i];
     } else if (counter === 0) {
-      let pageHitAndPageRatio = (pageFaults - 1) % frames;
-      tempAnswer[pageHitAndPageRatio] = referenceString[i];
+      let pageHitAndPageRatio = (pageFaults - 1) % frame;
+      tempAnswer[pageHitAndPageRatio] = page[i];
     }
     let elementsAnswer = [];
-    for (let j = 0; j < frames; j++) {
+    for (let j = 0; j < frame; j++) {
       elementsAnswer.push(tempAnswer[j]);
     }
     answer = answer.concat(elementsAnswer);
   }
   console.log("Total Page Faults: ", pageFaults);
+  document.getElementById("hit").innerHTML =
+    "Số lần truy cập: " + (pagesLength - pageFaults);
+  document.getElementById("pageFaults").innerHTML =
+    "Số lỗi trang: " + pageFaults;
   return answer;
 }
 
@@ -46,7 +47,7 @@ async function handleAnswerVariableTo2DArray(answer) {
   let handledAnswer = [];
   tempHandledAnswer = [];
   for (let i = 0; i < pagesLength; i++) {
-    for (let j = 0; j < frames; j++) {
+    for (let j = 0; j < frame; j++) {
       tempHandledAnswer.push(answer[count]);
       count++;
     }
@@ -71,7 +72,7 @@ async function handlePagesFaultsArray(handledAnswer) {
   return pagesFaultsArray;
 }
 
-function tableGenerator(handledAnswer, referenceString) {
+function tableGenerator(handledAnswer, page) {
   let tempFrames = 0;
   const body = document.body,
     mainTable = document.createElement("table");
@@ -92,7 +93,7 @@ function tableGenerator(handledAnswer, referenceString) {
       if (j == 0) {
         cell.appendChild(document.createTextNode("Tiến trình"));
       } else {
-        cell.appendChild(document.createTextNode(referenceString[j - 1]));
+        cell.appendChild(document.createTextNode(page[j - 1]));
       }
       cell.style.height = "40px";
       cell.style.color = "#fff";
@@ -102,12 +103,12 @@ function tableGenerator(handledAnswer, referenceString) {
     }
   }
 
-  for (let i = 0; i < frames; i++) {
+  for (let i = 0; i < frame; i++) {
     const row = mainTable.insertRow();
     for (let j = 0; j <= pagesLength; j++) {
       const cell = row.insertCell();
       if (j == 0) {
-        if (tempFrames <= frames) {
+        if (tempFrames <= frame) {
           tempFrames++;
           cell.appendChild(document.createTextNode("Frame " + tempFrames));
           cell.style.fontWeight = "bold";
@@ -151,13 +152,23 @@ function tableGenerator(handledAnswer, referenceString) {
   body.appendChild(mainTable);
 }
 
+function buttonRunAlg() {
+  page = JSON.parse("[" + document.querySelector("#inputPage").value + "]");
+  frame = parseInt(document.querySelector("#inputFrame").value);
+  (pageFaults = 0),
+    counter,
+    (pagesLength = page.length),
+    (pagesFaultsArray = ["✘"]);
+  interpretCode();
+}
+
 function interpretCode() {
   pagesLength > 0 &&
-    frames > 0 &&
-    referenceString.length > 0 &&
+    frame > 0 &&
+    page.length > 0 &&
     PageReplacementFIFOAlgorithm().then((answer) => {
       handleAnswerVariableTo2DArray(answer).then((handledAnswer) => {
-        tableGenerator(handledAnswer, referenceString);
+        tableGenerator(handledAnswer, page);
       });
     });
 }

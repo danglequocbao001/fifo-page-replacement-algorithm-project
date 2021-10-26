@@ -12,12 +12,26 @@
     <div class="content">
       <div class="content-header">
         <div class="content-header-detail" style="margin-left: 5%">
-          <h3>Họ tên: Đặng Lê Quốc Bảo</h3>
-          <h3>MSSV: N19DCCN014</h3>
-          <h3>Lớp: D19CQCN02-N</h3>
+          <h2>Họ tên: Đặng Lê Quốc Bảo</h2>
+          <h2>MSSV: N19DCCN014</h2>
+          <h2>Lớp: D19CQCN02-N</h2>
+          <h2>Môn: Hệ Điều Hành</h2>
         </div>
       </div>
-      <script language="javascript" src="FIFO.js"></script>
     </div>
+    <div class="content-bottom">
+      <div style="margin-bottom: 10px;">
+        <label for="fname">Nhập dãy trang (cách nhau bằng một dấu phẩy " , "):</label>
+        <input id="inputPage" type="text" value="7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1"/><br/>
+      </div>
+      <div>
+        <label for="fname">Nhập số frame:</label>
+        <input id="inputFrame" type="text" value="3"/><br/>
+      </div>
+      <button class="button-run" onclick="buttonRunAlg()">Chạy thuật toán FIFO</button>
+      <h2 id="hit"></h2>
+      <h2 id="pageFaults"></h3>
+    </div>
+    <script language="javascript" src="FIFO.js"></script>
   </body>
 </html>
