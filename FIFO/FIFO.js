@@ -1,5 +1,6 @@
-let reference_string = [1, 2, 3, 4, 2, 1, 5, 6, 2, 1, 2, 3, 7, 6, 3];
-let frames = 4;
+// let reference_string = [1, 2, 3, 4, 2, 1, 5, 6, 2, 1, 2, 3, 7, 6, 3];
+let reference_string = [7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1];
+let frames = 3;
 let pageFaults = 0,
   counter,
   pages = reference_string.length,
@@ -8,7 +9,7 @@ let pageFaults = 0,
 async function PageReplacementFIFOAlgorithm() {
   let tempAnswer = new Array();
   let answer = new Array();
-  tempAnswer.length = frames;
+  // tempAnswer.length = frames;
   for (let i = 0; i < frames; i++) {
     tempAnswer[i] = "";
   }
@@ -26,8 +27,10 @@ async function PageReplacementFIFOAlgorithm() {
     } else if (counter == 0) {
       tempAnswer[(pageFaults - 1) % frames] = reference_string[i];
     }
+    console.log(tempAnswer)
     answer = answer.concat(tempAnswer);
   }
+  console.log(answer)
   return answer;
 }
 
@@ -65,60 +68,68 @@ function tableGenerator(handledAnswer, reference_string) {
   let tempFrames = 0;
   const body = document.body,
     mainTable = document.createElement("table");
-  mainTable.style.width = "750px";
+  mainTable.style.width = "50%";
   mainTable.style.height = "100px";
   mainTable.style.textAlign = "center";
-
+  mainTable.style.boxShadow =
+    "rgb(0 0 0 / 20%) 0px 4px 8px 0px, rgb(0 0 0 / 19%) 0px 6px 20px 0px";
+  mainTable.style.padding = "15px";
+  mainTable.style.marginLeft = "25%";
   handlePagesFaultsArray(handledAnswer);
 
   for (let i = 0; i < 1; i++) {
-    const tr = mainTable.insertRow();
+    const row = mainTable.insertRow();
     for (let j = 0; j <= pages; j++) {
-      const td = tr.insertCell();
+      const cell = row.insertCell();
       if (j == 0) {
-        td.appendChild(document.createTextNode("Trang"));
+        cell.appendChild(document.createTextNode("Trang"));
       } else {
-        td.appendChild(document.createTextNode(reference_string[j - 1]));
+        cell.appendChild(document.createTextNode(reference_string[j - 1]));
       }
-
-      td.style.height = "30px";
-      td.style.color = "#fff";
-      td.style.backgroundColor = "#343a40";
-      td.style.borderColor = "#454d55";
-      td.style.fontWeight = "bold";
+      cell.style.height = "30px";
+      cell.style.color = "#fff";
+      cell.style.backgroundColor = "#343a40";
+      cell.style.fontWeight = "bold";
+      cell.style.fontSize = "18";
     }
   }
 
   for (let i = 0; i < frames; i++) {
-    const tr = mainTable.insertRow();
+    const row = mainTable.insertRow();
     for (let j = 0; j <= pages; j++) {
-      const td = tr.insertCell();
+      const cell = row.insertCell();
       if (j == 0) {
         if (tempFrames <= frames) {
           tempFrames++;
-          td.appendChild(document.createTextNode("Frame " + tempFrames));
-          td.style.fontWeight = "bold";
+          cell.appendChild(document.createTextNode("Frame " + tempFrames));
+          cell.style.fontWeight = "bold";
         }
       } else {
-        td.appendChild(document.createTextNode(handledAnswer[j - 1][i]));
+        cell.appendChild(document.createTextNode(handledAnswer[j - 1][i]));
       }
-      td.style.border = "1px solid black";
-      td.style.height = "30px";
+      cell.style.height = "30px";
+      cell.style.fontSize = "18";
     }
   }
 
   for (let i = 0; i < 1; i++) {
-    const tr = mainTable.insertRow();
+    const row = mainTable.insertRow();
     for (let j = 0; j <= pages; j++) {
-      const td = tr.insertCell();
+      const cell = row.insertCell();
       if (j == 0) {
-        td.appendChild(document.createTextNode("Trạng thái"));
-        td.style.fontWeight = "bold";
+        cell.appendChild(document.createTextNode("Trạng thái"));
+        cell.style.fontWeight = "bold";
       } else {
-        td.appendChild(document.createTextNode(pagesFaultsArray[j - 1]));
+        cell.appendChild(document.createTextNode(pagesFaultsArray[j - 1]));
+        if (pagesFaultsArray[j - 1] == "✓") {
+          cell.style.color = "green";
+        } else {
+          cell.style.color = "red";
+        }
       }
-      td.style.border = "1px solid black";
-      td.style.height = "30px";
+      cell.style.height = "30px";
+      cell.style.fontWeight = "bold";
+      cell.style.fontSize = "18";
     }
   }
 
