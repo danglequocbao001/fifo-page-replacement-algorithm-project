@@ -2,7 +2,7 @@ let page = [7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1];
 let frame = 3;
 let pageFaults = 0,
   pagesLength = page.length,
-  pagesFaultsArray = [];
+  pagesFaultsArray = ["✘"];
 
 var inputPage = document.getElementById("inputPage");
 inputPage.addEventListener("keyup", function (event) {
