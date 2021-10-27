@@ -49,10 +49,6 @@ async function PageReplacementFIFOAlgorithm() {
     }
     answer = answer.concat(elementsAnswer);
   }
-  document.getElementById("hit").innerHTML =
-    "Số lần truy cập: " + (pagesLength - pageFaults) || 0;
-  document.getElementById("pageFaults").innerHTML =
-    "Số lỗi trang: " + pageFaults || 0;
   return answer;
 }
 
@@ -96,8 +92,7 @@ function tableGenerator(page, handledAnswer, isInitial) {
   mainTable.style.boxShadow =
     "rgb(0 0 0 / 20%) 0px 4px 8px 0px, rgb(0 0 0 / 19%) 0px 6px 20px 0px";
   mainTable.style.padding = "15px";
-  mainTable.style.marginLeft = "25%";
-  mainTable.style.border = "none";
+  mainTable.style.margin = "auto";
 
   if (isInitial == true) {
     pagesFaultsArray = [];
@@ -171,7 +166,22 @@ function tableGenerator(page, handledAnswer, isInitial) {
     }
   }
 
+  isInitial == true
+    ? (document.getElementById("hit").innerHTML = "Số lần truy cập: " + 0 || 0)
+    : (document.getElementById("hit").innerHTML =
+        "Số lần truy cập: " + (pagesLength - pageFaults) || 0);
+  document.getElementById("pageFaults").innerHTML =
+    "Số lỗi trang: " + pageFaults || 0;
+
   body.appendChild(mainTable);
+}
+
+function interpretCode() {
+  PageReplacementFIFOAlgorithm().then((answer) => {
+    handleAnswerVariableTo2DArray(answer).then((handledAnswer) => {
+      tableGenerator(page, handledAnswer, false);
+    });
+  });
 }
 
 function buttonRunAlgFIFO() {
@@ -192,94 +202,7 @@ function buttonRunAlgFIFO() {
   }
 }
 
-function initExampleTable(page, handledAnswer) {
-  let tempFrames = 0;
-
-  const body = document.body,
-    mainTable = document.createElement("table");
-  mainTable.style.width = "50%";
-  mainTable.style.height = "300px";
-  mainTable.style.textAlign = "center";
-  mainTable.style.boxShadow =
-    "rgb(0 0 0 / 20%) 0px 4px 8px 0px, rgb(0 0 0 / 19%) 0px 6px 20px 0px";
-  mainTable.style.padding = "15px";
-  mainTable.style.marginLeft = "25%";
-  mainTable.style.border = "none";
-
-  for (let i = 0; i < 1; i++) {
-    const row = mainTable.insertRow();
-    for (let j = 0; j <= pagesLength; j++) {
-      const cell = row.insertCell();
-      if (j == 0) {
-        cell.appendChild(document.createTextNode("Tiến trình"));
-      } else {
-        cell.appendChild(document.createTextNode(page[j - 1]));
-      }
-      cell.style.height = "40px";
-      cell.style.color = "#fff";
-      cell.style.backgroundColor = "#343a40";
-      cell.style.fontWeight = "bold";
-      cell.style.fontSize = "18";
-    }
-  }
-
-  for (let i = 0; i < frame; i++) {
-    const row = mainTable.insertRow();
-    for (let j = 0; j <= pagesLength; j++) {
-      const cell = row.insertCell();
-      if (j == 0) {
-        if (tempFrames <= frame) {
-          tempFrames++;
-          cell.appendChild(document.createTextNode("Frame " + tempFrames));
-          cell.style.fontWeight = "bold";
-          if (tempFrames % 2 == 0) {
-            cell.style.backgroundColor = "rgba(204, 255, 204, 0.75)";
-          }
-        }
-      } else {
-        cell.appendChild(document.createTextNode(handledAnswer[j - 1][i]));
-        if (i % 2 != 0) {
-          cell.style.backgroundColor = "rgba(204, 255, 204, 0.75)";
-        }
-      }
-      cell.style.height = "40px";
-      cell.style.fontSize = "18";
-    }
-  }
-
-  for (let i = 0; i < 1; i++) {
-    const row = mainTable.insertRow();
-    for (let j = 0; j <= pagesLength; j++) {
-      const cell = row.insertCell();
-      if (j == 0) {
-        cell.appendChild(document.createTextNode("Trạng thái"));
-        cell.style.fontWeight = "bold";
-      } else {
-        cell.appendChild(document.createTextNode(pagesFaultsArray[j - 1]));
-        if (pagesFaultsArray[j - 1] == "✔") {
-          cell.style.color = "green";
-        } else {
-          cell.style.color = "red";
-        }
-      }
-      cell.style.height = "40px";
-      cell.style.fontWeight = "bold";
-      cell.style.fontSize = "18";
-      cell.style.backgroundColor = "rgb(204, 255, 255)";
-    }
-  }
-
-  body.appendChild(mainTable);
-}
-
-function interpretCode() {
-  PageReplacementFIFOAlgorithm().then((answer) => {
-    handleAnswerVariableTo2DArray(answer).then((handledAnswer) => {
-      tableGenerator(page, handledAnswer, false);
-    });
-  });
-}
-function init() {
+function initial() {
   let answer = [];
   for (let i = 0; i < 60; i++) {
     answer.push("");
@@ -289,5 +212,4 @@ function init() {
   });
 }
 
-init();
-// interpretCode();
+initial();
