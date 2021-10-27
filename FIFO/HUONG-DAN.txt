@@ -1,0 +1,8 @@
+
+Thầy có thể chạy bằng cách trực tiếp truy cập vào live server:
+https://page-replacement-fifo.glitch.me/FIFO.html
+
+Hoặc mở file "FIFO.html" ngay trong folder này để chạy bằng local 
+host.
+
+Cảm ơn thầy.

@@ -49,6 +49,7 @@ async function PageReplacementFIFOAlgorithm() {
     }
     answer = answer.concat(elementsAnswer);
   }
+
   return answer;
 }
 
@@ -68,7 +69,7 @@ async function handleAnswerVariableTo2DArray(answer) {
 }
 
 async function handlePagesFaultsArray(handledAnswer) {
-  for (let i = 0; i < pagesLength; i++) {
+  for (let i = 0; i < pagesLength - 1; i++) {
     if (i + 1 != undefined) {
       if (
         JSON.stringify(handledAnswer[i]) == JSON.stringify(handledAnswer[i + 1])
@@ -79,20 +80,34 @@ async function handlePagesFaultsArray(handledAnswer) {
       }
     }
   }
+  console.log(pagesFaultsArray);
   return pagesFaultsArray;
+}
+
+function countFaultsAndHit(pagesFaultsArray) {
+  let pageFaults = 0;
+  let pageHit = 0;
+  for (let i = 0; i < pagesFaultsArray.length; i++) {
+    if (pagesFaultsArray[i] == "✔") pageHit++;
+    else pageFaults++;
+  }
+  document.getElementById("hit").innerHTML = "Số lần truy cập: " + pageHit;
+  document.getElementById("pageFaults").innerHTML =
+    "Số lỗi trang: " + pageFaults;
 }
 
 function tableGenerator(page, handledAnswer, isInitial) {
   let tempFrames = 0;
   const body = document.body,
     mainTable = document.createElement("table");
-  mainTable.style.width = "50%";
+  mainTable.style.width = "55%";
   mainTable.style.height = "300px";
   mainTable.style.textAlign = "center";
   mainTable.style.boxShadow =
     "rgb(0 0 0 / 20%) 0px 4px 8px 0px, rgb(0 0 0 / 19%) 0px 6px 20px 0px";
   mainTable.style.padding = "15px";
   mainTable.style.margin = "auto";
+  mainTable.style.borderRadius = "10px";
 
   if (isInitial == true) {
     pagesFaultsArray = [];
@@ -166,12 +181,10 @@ function tableGenerator(page, handledAnswer, isInitial) {
     }
   }
 
-  isInitial == true
-    ? (document.getElementById("hit").innerHTML = "Số lần truy cập: " + 0 || 0)
-    : (document.getElementById("hit").innerHTML =
-        "Số lần truy cập: " + (pagesLength - pageFaults) || 0);
-  document.getElementById("pageFaults").innerHTML =
-    "Số lỗi trang: " + pageFaults || 0;
+  if (isInitial == true) {
+    document.getElementById("hit").innerHTML = "Số lần truy cập: 0";
+    document.getElementById("pageFaults").innerHTML = "Số lỗi trang: 0";
+  } else countFaultsAndHit(pagesFaultsArray);
 
   body.appendChild(mainTable);
 }
