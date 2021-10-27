@@ -1,16 +1,97 @@
+body {
+  padding-top: 20px;
+  padding-bottom: 50px;
+  justify-content: center;
+  align-items: center;
+}
 .content {
   max-width: 95.5vh;
   margin: auto;
   box-shadow: rgb(0 0 0 / 20%) 0px 4px 8px 0px,
     rgb(0 0 0 / 19%) 0px 6px 20px 0px;
   padding: 30px;
+  margin-bottom: 20px;
+}
+
+.ptit-name {
+  float: right;
+  margin-top: 45px;
+  color: red;
+  cursor: default;
 }
 
 .content-header {
   width: 100%;
-  justify-content: space-around;
 }
 
 .content-header-detail {
   display: inline-block;
+}
+
+.project-title {
+  text-align: center;
+  color: #4caf50;
+}
+
+.content-bottom {
+  max-width: 95.5vh;
+  margin: auto;
+  box-shadow: rgb(0 0 0 / 20%) 0px 4px 8px 0px,
+    rgb(0 0 0 / 19%) 0px 6px 20px 0px;
+  padding: 30px;
+  margin-bottom: 20px;
+  flex-direction: column;
+}
+
+.button-run {
+  margin-top: 10px;
+  padding: 12px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border: 1px solid #4caf50;
+  color: #4caf50;
+  background-color: #fff;
+  border-radius: 7px;
+  font-weight: bold;
+  margin-left: 2.5%;
+}
+
+.button-run:hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+input {
+  padding: 10px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #4caf50;
+  outline: none;
+  border-radius: 7px;
+  color: #4caf50;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+input:focus {
+  background-color: rgba(76, 175, 80, 0.75);
+  color: #fff;
+}
+
+.input-label {
+  font-weight: bold;
+}
+
+.output-label {
+  display: block;
+  font-size: 1.4em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
 }
