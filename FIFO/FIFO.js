@@ -1,7 +1,6 @@
 let page = [7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1];
 let frame = 3;
 let pageFaults = 0,
-  counter,
   pagesLength = page.length,
   pagesFaultsArray = ["✘"];
 
@@ -167,7 +166,7 @@ function tableGenerator(page, handledAnswer) {
   body.appendChild(mainTable);
 }
 
-function buttonRunAlg() {
+function buttonRunAlgFIFO() {
   let stringPage = document.querySelector("#inputPage").value;
   stringPage = stringPage.replace(/\s/g, "");
   if (stringPage.charAt(0) == ",") stringPage = stringPage.substring(1);
@@ -176,16 +175,97 @@ function buttonRunAlg() {
 
   page = JSON.parse("[" + stringPage + "]");
   frame = parseInt(document.querySelector("#inputFrame").value);
-  (pageFaults = 0),
-    counter,
-    (pagesLength = page.length),
-    (pagesFaultsArray = ["✘"]);
+  (pageFaults = 0), (pagesLength = page.length), (pagesFaultsArray = ["✘"]);
   if (pagesLength <= 0) alert("Không được bỏ trống dãy trang!");
   else if (frame <= 0) alert("Frame tối thiểu bằng 1!");
   else if (pagesLength > 0 && frame > 0) {
     document.querySelector("table").remove();
     interpretCode();
   }
+}
+
+function initExampleTable(page, handledAnswer) {
+  let tempFrames = 0;
+  pagesFaultsArray = [];
+  const body = document.body,
+    mainTable = document.createElement("table");
+  mainTable.style.width = "50%";
+  mainTable.style.height = "300px";
+  mainTable.style.textAlign = "center";
+  mainTable.style.boxShadow =
+    "rgb(0 0 0 / 20%) 0px 4px 8px 0px, rgb(0 0 0 / 19%) 0px 6px 20px 0px";
+  mainTable.style.padding = "15px";
+  mainTable.style.marginLeft = "25%";
+  mainTable.style.border = "none";
+
+  for (let i = 0; i <= pagesLength; i++) {
+    pagesFaultsArray.push("");
+  }
+
+  for (let i = 0; i < 1; i++) {
+    const row = mainTable.insertRow();
+    for (let j = 0; j <= pagesLength; j++) {
+      const cell = row.insertCell();
+      if (j == 0) {
+        cell.appendChild(document.createTextNode("Tiến trình"));
+      } else {
+        cell.appendChild(document.createTextNode(page[j - 1]));
+      }
+      cell.style.height = "40px";
+      cell.style.color = "#fff";
+      cell.style.backgroundColor = "#343a40";
+      cell.style.fontWeight = "bold";
+      cell.style.fontSize = "18";
+    }
+  }
+
+  for (let i = 0; i < frame; i++) {
+    const row = mainTable.insertRow();
+    for (let j = 0; j <= pagesLength; j++) {
+      const cell = row.insertCell();
+      if (j == 0) {
+        if (tempFrames <= frame) {
+          tempFrames++;
+          cell.appendChild(document.createTextNode("Frame " + tempFrames));
+          cell.style.fontWeight = "bold";
+          if (tempFrames % 2 == 0) {
+            cell.style.backgroundColor = "rgba(204, 255, 204, 0.75)";
+          }
+        }
+      } else {
+        cell.appendChild(document.createTextNode(handledAnswer[j - 1][i]));
+        if (i % 2 != 0) {
+          cell.style.backgroundColor = "rgba(204, 255, 204, 0.75)";
+        }
+      }
+      cell.style.height = "40px";
+      cell.style.fontSize = "18";
+    }
+  }
+
+  for (let i = 0; i < 1; i++) {
+    const row = mainTable.insertRow();
+    for (let j = 0; j <= pagesLength; j++) {
+      const cell = row.insertCell();
+      if (j == 0) {
+        cell.appendChild(document.createTextNode("Trạng thái"));
+        cell.style.fontWeight = "bold";
+      } else {
+        cell.appendChild(document.createTextNode(pagesFaultsArray[j - 1]));
+        if (pagesFaultsArray[j - 1] == "✔") {
+          cell.style.color = "green";
+        } else {
+          cell.style.color = "red";
+        }
+      }
+      cell.style.height = "40px";
+      cell.style.fontWeight = "bold";
+      cell.style.fontSize = "18";
+      cell.style.backgroundColor = "rgb(204, 255, 255)";
+    }
+  }
+
+  body.appendChild(mainTable);
 }
 
 function interpretCode() {
@@ -195,5 +275,15 @@ function interpretCode() {
     });
   });
 }
+function init() {
+  let answer = [];
+  for (let i = 0; i < 60; i++) {
+    answer.push("");
+  }
+  handleAnswerVariableTo2DArray(answer).then((handledAnswer) => {
+    initExampleTable(page, handledAnswer);
+  });
+}
 
-interpretCode();
+init();
+// interpretCode();
