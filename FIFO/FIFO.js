@@ -80,7 +80,6 @@ async function handlePagesFaultsArray(handledAnswer) {
       }
     }
   }
-  console.log(pagesFaultsArray);
   return pagesFaultsArray;
 }
 
