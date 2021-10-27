@@ -2,7 +2,7 @@ let page = [7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1];
 let frame = 3;
 let pageFaults = 0,
   pagesLength = page.length,
-  pagesFaultsArray = ["✘"];
+  pagesFaultsArray = [];
 
 var inputPage = document.getElementById("inputPage");
 inputPage.addEventListener("keyup", function (event) {
@@ -49,6 +49,7 @@ async function PageReplacementFIFOAlgorithm() {
     }
     answer = answer.concat(elementsAnswer);
   }
+
   return answer;
 }
 
@@ -68,7 +69,7 @@ async function handleAnswerVariableTo2DArray(answer) {
 }
 
 async function handlePagesFaultsArray(handledAnswer) {
-  for (let i = 0; i < pagesLength; i++) {
+  for (let i = 0; i < pagesLength - 1; i++) {
     if (i + 1 != undefined) {
       if (
         JSON.stringify(handledAnswer[i]) == JSON.stringify(handledAnswer[i + 1])
@@ -79,7 +80,20 @@ async function handlePagesFaultsArray(handledAnswer) {
       }
     }
   }
+  console.log(pagesFaultsArray);
   return pagesFaultsArray;
+}
+
+function countFaultsAndHit(pagesFaultsArray) {
+  let pageFaults = 0;
+  let pageHit = 0;
+  for (let i = 0; i < pagesFaultsArray.length; i++) {
+    if (pagesFaultsArray[i] == "✔") pageHit++;
+    else pageFaults++;
+  }
+  document.getElementById("hit").innerHTML = "Số lần truy cập: " + pageHit;
+  document.getElementById("pageFaults").innerHTML =
+    "Số lỗi trang: " + pageFaults;
 }
 
 function tableGenerator(page, handledAnswer, isInitial) {
@@ -167,12 +181,10 @@ function tableGenerator(page, handledAnswer, isInitial) {
     }
   }
 
-  isInitial == true
-    ? (document.getElementById("hit").innerHTML = "Số lần truy cập: " + 0 || 0)
-    : (document.getElementById("hit").innerHTML =
-        "Số lần truy cập: " + (pagesLength - pageFaults) || 0);
-  document.getElementById("pageFaults").innerHTML =
-    "Số lỗi trang: " + pageFaults || 0;
+  if (isInitial == true) {
+    document.getElementById("hit").innerHTML = "Số lần truy cập: 0";
+    document.getElementById("pageFaults").innerHTML = "Số lỗi trang: 0";
+  } else countFaultsAndHit(pagesFaultsArray);
 
   body.appendChild(mainTable);
 }
