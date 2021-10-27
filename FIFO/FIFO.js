@@ -86,7 +86,7 @@ async function handlePagesFaultsArray(handledAnswer) {
   return pagesFaultsArray;
 }
 
-function tableGenerator(page, handledAnswer) {
+function tableGenerator(page, handledAnswer, isInitial) {
   let tempFrames = 0;
   const body = document.body,
     mainTable = document.createElement("table");
@@ -98,7 +98,15 @@ function tableGenerator(page, handledAnswer) {
   mainTable.style.padding = "15px";
   mainTable.style.marginLeft = "25%";
   mainTable.style.border = "none";
-  handlePagesFaultsArray(handledAnswer);
+
+  if (isInitial == true) {
+    pagesFaultsArray = [];
+    for (let i = 0; i <= pagesLength; i++) {
+      pagesFaultsArray.push("");
+    }
+  } else {
+    handlePagesFaultsArray(handledAnswer);
+  }
 
   for (let i = 0; i < 1; i++) {
     const row = mainTable.insertRow();
@@ -186,7 +194,7 @@ function buttonRunAlgFIFO() {
 
 function initExampleTable(page, handledAnswer) {
   let tempFrames = 0;
-  pagesFaultsArray = [];
+
   const body = document.body,
     mainTable = document.createElement("table");
   mainTable.style.width = "50%";
@@ -197,10 +205,6 @@ function initExampleTable(page, handledAnswer) {
   mainTable.style.padding = "15px";
   mainTable.style.marginLeft = "25%";
   mainTable.style.border = "none";
-
-  for (let i = 0; i <= pagesLength; i++) {
-    pagesFaultsArray.push("");
-  }
 
   for (let i = 0; i < 1; i++) {
     const row = mainTable.insertRow();
@@ -271,7 +275,7 @@ function initExampleTable(page, handledAnswer) {
 function interpretCode() {
   PageReplacementFIFOAlgorithm().then((answer) => {
     handleAnswerVariableTo2DArray(answer).then((handledAnswer) => {
-      tableGenerator(page, handledAnswer);
+      tableGenerator(page, handledAnswer, false);
     });
   });
 }
@@ -281,7 +285,7 @@ function init() {
     answer.push("");
   }
   handleAnswerVariableTo2DArray(answer).then((handledAnswer) => {
-    initExampleTable(page, handledAnswer);
+    tableGenerator(page, handledAnswer, true);
   });
 }
 
