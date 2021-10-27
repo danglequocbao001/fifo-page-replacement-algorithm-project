@@ -86,13 +86,14 @@ function tableGenerator(page, handledAnswer, isInitial) {
   let tempFrames = 0;
   const body = document.body,
     mainTable = document.createElement("table");
-  mainTable.style.width = "50%";
+  mainTable.style.width = "55%";
   mainTable.style.height = "300px";
   mainTable.style.textAlign = "center";
   mainTable.style.boxShadow =
     "rgb(0 0 0 / 20%) 0px 4px 8px 0px, rgb(0 0 0 / 19%) 0px 6px 20px 0px";
   mainTable.style.padding = "15px";
   mainTable.style.margin = "auto";
+  mainTable.style.borderRadius = "10px";
 
   if (isInitial == true) {
     pagesFaultsArray = [];
