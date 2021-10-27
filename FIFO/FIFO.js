@@ -212,7 +212,7 @@ function buttonRunAlgFIFO() {
   page = JSON.parse("[" + stringPage + "]");
   frame = parseInt(document.querySelector("#inputFrame").value);
   (pageFaults = 0), (pagesLength = page.length), (pagesFaultsArray = ["✘"]);
-  
+
   if (pagesLength <= 0) alert("Không được bỏ trống dãy trang!");
   else if (frame <= 0) alert("Frame tối thiểu bằng 1!");
   else if (pagesLength > 0 && frame > 0) {
