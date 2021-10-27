@@ -50,11 +50,10 @@ async function PageReplacementFIFOAlgorithm() {
     }
     answer = answer.concat(elementsAnswer);
   }
-  console.log("Total Page Faults: ", pageFaults);
   document.getElementById("hit").innerHTML =
-    "Số lần truy cập: " + (pagesLength - pageFaults);
+    "Số lần truy cập: " + (pagesLength - pageFaults) || 0;
   document.getElementById("pageFaults").innerHTML =
-    "Số lỗi trang: " + pageFaults;
+    "Số lỗi trang: " + pageFaults || 0;
   return answer;
 }
 
@@ -88,8 +87,7 @@ async function handlePagesFaultsArray(handledAnswer) {
   return pagesFaultsArray;
 }
 
-function tableGenerator(handledAnswer, page) {
-  // document.querySelector("table").innerHTML = "";
+function tableGenerator(page, handledAnswer) {
   let tempFrames = 0;
   const body = document.body,
     mainTable = document.createElement("table");
@@ -170,23 +168,30 @@ function tableGenerator(handledAnswer, page) {
 }
 
 function buttonRunAlg() {
-  document.querySelector("table").remove();
-  page = JSON.parse("[" + document.querySelector("#inputPage").value + "]");
+  let stringPage = document.querySelector("#inputPage").value;
+  stringPage = stringPage.replace(/\s/g, "");
+  if (stringPage.charAt(0) == ",") stringPage = stringPage.substring(1);
+  if (stringPage.charAt(stringPage.length - 1) == ",")
+    stringPage = stringPage.substring(0, stringPage.length - 1);
+
+  page = JSON.parse("[" + stringPage + "]");
   frame = parseInt(document.querySelector("#inputFrame").value);
   (pageFaults = 0),
     counter,
     (pagesLength = page.length),
     (pagesFaultsArray = ["✘"]);
-  interpretCode();
+  if (pagesLength <= 0) alert("Không được bỏ trống dãy trang!");
+  else if (frame <= 0) alert("Frame tối thiểu bằng 1!");
+  else if (pagesLength > 0 && frame > 0) {
+    document.querySelector("table").remove();
+    interpretCode();
+  }
 }
 
 function interpretCode() {
-  // pagesLength > 0 &&
-  //   frame > 0 &&
-  //   page.length > 0 &&
   PageReplacementFIFOAlgorithm().then((answer) => {
     handleAnswerVariableTo2DArray(answer).then((handledAnswer) => {
-      tableGenerator(handledAnswer, page);
+      tableGenerator(page, handledAnswer);
     });
   });
 }

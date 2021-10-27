@@ -1,6 +1,7 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <title>Giải thuật thay thế trang theo thuật toán FIFO.</title>
+    <title>Giải thuật thay thế trang theo thuật toán FIFO</title>
     <link
       rel="shortcut icon"
       href="https://cdn-icons-png.flaticon.com/512/1583/1583017.png"
@@ -14,23 +15,46 @@
         <div class="content-header-detail" style="margin-left: 5%">
           <h2>Họ tên: Đặng Lê Quốc Bảo</h2>
           <h2>MSSV: N19DCCN014</h2>
+        </div>
+        <div class="content-header-detail" style="margin-left: 30%">
           <h2>Lớp: D19CQCN02-N</h2>
           <h2>Môn: Hệ Điều Hành</h2>
         </div>
       </div>
+      <h2 class="project-title">Đồ án cuối kỳ môn Hệ Điều Hành</h2>
+      <h2 class="project-title">
+        Chương trình mô phỏng giải thuật thay thế trang theo thuật toán FIFO
+      </h2>
     </div>
     <div class="content-bottom">
-      <div style="margin-bottom: 10px;">
-        <label for="fname">Nhập dãy trang (cách nhau bằng một dấu phẩy " , "):</label>
-        <input id="inputPage" type="text" value="7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1"/><br/>
+      <div style="margin-bottom: 10px">
+        <label class="input-label" for="fname"
+          >Nhập dãy trang (cách nhau bằng một dấu phẩy " , "):</label
+        >
+        <input
+          id="inputPage"
+          type="text"
+          value="7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1"
+          style="width: 58.5%"
+        /><br />
       </div>
       <div>
-        <label for="fname">Nhập số frame:</label>
-        <input id="inputFrame" type="text" value="3"/><br/>
+        <label class="input-label" for="fname">Nhập số frame:</label>
+        <input
+          id="inputFrame"
+          type="number"
+          name="quantity"
+          value="3"
+          min="1"
+          style="width: 10%; text-align: center"
+        />
+        <button class="button-run" id="buttonRun" onclick="buttonRunAlg()">
+          Chạy thuật toán FIFO
+        </button>
       </div>
-      <button class="button-run" id="buttonRun" onclick="buttonRunAlg()">Chạy thuật toán FIFO</button>
-      <h2 id="hit"></h2>
-      <h2 id="pageFaults"></h3>
+
+      <label id="hit" class="output-label"></label>
+      <label id="pageFaults" class="output-label"></label>
     </div>
     <script language="javascript" src="FIFO.js"></script>
   </body>
