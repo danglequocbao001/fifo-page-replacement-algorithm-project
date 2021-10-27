@@ -43,20 +43,20 @@
       <h2 class="project-title">
         Chương trình mô phỏng giải thuật thay thế trang theo thuật toán FIFO
       </h2>
-      <div style="margin-top: 35px;">
+      <div style="margin-top: 35px">
         <div style="margin-bottom: 10px">
           <label class="input-label" for="fname"
-            >Nhập dãy trang (cách nhau bằng một dấu phẩy " , "):</label
+            >*Nhập dãy trang (cách nhau bằng một dấu phẩy " , "):</label
           >
           <input
             id="inputPage"
             type="text"
             value="7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1"
-            style="width: 54.5%"
+            style="width: 54%"
           /><br />
         </div>
         <div>
-          <label class="input-label" for="fname">Nhập số frame:</label>
+          <label class="input-label" for="fname">*Nhập số frame:</label>
           <input
             id="inputFrame"
             type="number"
@@ -73,8 +73,15 @@
             Chạy thuật toán FIFO
           </button>
         </div>
-        <label id="hit" class="output-label"></label>
-        <label id="pageFaults" class="output-label"></label>
+        <div class="in-out-put-box">
+          <div>
+            <label id="page" class="output-label"></label>
+            <label id="hit" class="output-label"></label>
+          </div>
+          <div style="margin-left: 25px">
+            <label id="pageFaults" class="output-label"></label>
+          </div>
+        </div>
       </div>
     </div>
     <script language="javascript" src="FIFO.js"></script>

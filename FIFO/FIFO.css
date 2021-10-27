@@ -10,6 +10,7 @@ body {
   box-shadow: rgb(0 0 0 / 20%) 0px 4px 8px 0px,
     rgb(0 0 0 / 19%) 0px 6px 20px 0px;
   padding: 30px;
+  padding-bottom: 10px;
   margin-bottom: 10px;
   border-radius: 10px;
 }
@@ -23,6 +24,7 @@ body {
 
 .content-header {
   width: 100%;
+  cursor: default;
 }
 
 .content-header-detail {
@@ -32,6 +34,7 @@ body {
 .project-title {
   text-align: center;
   color: #4caf50;
+  cursor: default;
 }
 
 .button-run {
@@ -73,13 +76,17 @@ input:focus {
   color: #fff;
 }
 
+.in-out-put-box {
+  display: flex;
+}
+
 .input-label {
   font-weight: bold;
 }
 
 .output-label {
   display: block;
-  font-size: 1.4em;
+  font-size: 1.3em;
   margin-block-start: 0.83em;
   margin-block-end: 0.83em;
   margin-inline-start: 0px;

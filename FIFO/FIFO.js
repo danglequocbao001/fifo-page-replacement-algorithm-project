@@ -90,9 +90,11 @@ function countFaultsAndHit(pagesFaultsArray) {
     if (pagesFaultsArray[i] == "✔") pageHit++;
     else pageFaults++;
   }
-  document.getElementById("hit").innerHTML = "Số lần truy cập: " + pageHit;
+  document.getElementById("page").innerHTML =
+    "📝Số trang: " + pagesFaultsArray.length;
   document.getElementById("pageFaults").innerHTML =
-    "Số lỗi trang: " + pageFaults;
+    "🐞Số lỗi trang: " + pageFaults;
+  document.getElementById("hit").innerHTML = "📈Số hit ratio: " + pageHit;
 }
 
 function tableGenerator(page, handledAnswer, isInitial) {
@@ -107,6 +109,7 @@ function tableGenerator(page, handledAnswer, isInitial) {
   mainTable.style.padding = "15px";
   mainTable.style.margin = "auto";
   mainTable.style.borderRadius = "10px";
+  mainTable.style.cursor = "default";
 
   if (isInitial == true) {
     pagesFaultsArray = [];
@@ -155,6 +158,7 @@ function tableGenerator(page, handledAnswer, isInitial) {
       }
       cell.style.height = "40px";
       cell.style.fontSize = "18";
+      cell.style.fontWeight = "bold";
     }
   }
 
@@ -181,8 +185,9 @@ function tableGenerator(page, handledAnswer, isInitial) {
   }
 
   if (isInitial == true) {
-    document.getElementById("hit").innerHTML = "Số lần truy cập: 0";
-    document.getElementById("pageFaults").innerHTML = "Số lỗi trang: 0";
+    document.getElementById("page").innerHTML = "📝Số trang: 0";
+    document.getElementById("pageFaults").innerHTML = "🐞Số lỗi trang: 0";
+    document.getElementById("hit").innerHTML = "📈Số hit ratio: 0";
   } else countFaultsAndHit(pagesFaultsArray);
 
   body.appendChild(mainTable);
@@ -199,6 +204,7 @@ function interpretCode() {
 function buttonRunAlgFIFO() {
   let stringPage = document.querySelector("#inputPage").value;
   stringPage = stringPage.replace(/\s/g, "");
+
   if (stringPage.charAt(0) == ",") stringPage = stringPage.substring(1);
   if (stringPage.charAt(stringPage.length - 1) == ",")
     stringPage = stringPage.substring(0, stringPage.length - 1);
@@ -206,6 +212,7 @@ function buttonRunAlgFIFO() {
   page = JSON.parse("[" + stringPage + "]");
   frame = parseInt(document.querySelector("#inputFrame").value);
   (pageFaults = 0), (pagesLength = page.length), (pagesFaultsArray = ["✘"]);
+  
   if (pagesLength <= 0) alert("Không được bỏ trống dãy trang!");
   else if (frame <= 0) alert("Frame tối thiểu bằng 1!");
   else if (pagesLength > 0 && frame > 0) {
