@@ -49,7 +49,6 @@ async function PageReplacementFIFOAlgorithm() {
     }
     answer = answer.concat(elementsAnswer);
   }
-  console.log(answer)
   return answer;
 }
 
@@ -61,6 +60,13 @@ async function handleAnswerVariableTo2DArray(answer) {
     for (let j = 0; j < frame; j++) {
       tempHandledAnswer.push(answer[count]);
       count++;
+    }
+    for (let i = 0; i < tempHandledAnswer.length; i++) {
+      if (tempHandledAnswer[i] == "") {
+        tempHandledAnswer.push(
+          tempHandledAnswer.splice(tempHandledAnswer.indexOf(""), 1)[0]
+        );
+      }
     }
     handledAnswer.push(tempHandledAnswer);
     tempHandledAnswer = [];
