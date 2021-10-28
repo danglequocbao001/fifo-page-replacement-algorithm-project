@@ -1,8 +1,9 @@
+Em chào thầy!
 
-Thầy có thể chạy bằng cách trực tiếp truy cập vào live server:
-https://page-replacement-fifo.glitch.me/FIFO.html
+Thầy có thể mở đồ án của em bằng cách truy cập trực tiếp vào
+live server: https://page-replacement-fifo.glitch.me/FIFO.html
 
-Hoặc mở file "FIFO.html" ngay trong folder này để chạy bằng local 
+hoặc mở file "FIFO.html" ngay trong folder này để chạy bằng local 
 host.
 
 Em cảm ơn thầy.
