@@ -49,7 +49,7 @@ async function PageReplacementFIFOAlgorithm() {
     }
     answer = answer.concat(elementsAnswer);
   }
-
+  console.log(answer)
   return answer;
 }
 
