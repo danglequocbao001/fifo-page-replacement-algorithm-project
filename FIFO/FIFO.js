@@ -83,7 +83,7 @@ async function handlePagesFaultsArray(handledAnswer) {
   return pagesFaultsArray;
 }
 
-function countFaultsAndHit(pagesFaultsArray) {
+function countFaultsAndHits(pagesFaultsArray) {
   let pageFaults = 0;
   let pageHit = 0;
   for (let i = 0; i < pagesFaultsArray.length; i++) {
@@ -101,7 +101,8 @@ function tableGenerator(page, handledAnswer, isInitial) {
   let tempFrames = 0;
   const body = document.body,
     mainTable = document.createElement("table");
-  mainTable.style.width = "55%";
+  // mainTable.style.width = "55%";
+  mainTable.style.width = "1100px";
   mainTable.style.height = "300px";
   mainTable.style.textAlign = "center";
   mainTable.style.boxShadow =
@@ -126,9 +127,11 @@ function tableGenerator(page, handledAnswer, isInitial) {
       const cell = row.insertCell();
       if (j == 0) {
         cell.appendChild(document.createTextNode("Tiến trình"));
+        cell.style.minWidth = "120px";
       } else {
         cell.appendChild(document.createTextNode(page[j - 1]));
       }
+      cell.style.minWidth = "40px";
       cell.style.height = "40px";
       cell.style.color = "#fff";
       cell.style.backgroundColor = "#343a40";
@@ -146,6 +149,7 @@ function tableGenerator(page, handledAnswer, isInitial) {
           tempFrames++;
           cell.appendChild(document.createTextNode("Frame " + tempFrames));
           cell.style.fontWeight = "bold";
+          cell.style.minWidth = "120px";
           if (tempFrames % 2 == 0) {
             cell.style.backgroundColor = "rgba(204, 255, 204, 0.75)";
           }
@@ -169,6 +173,7 @@ function tableGenerator(page, handledAnswer, isInitial) {
       if (j == 0) {
         cell.appendChild(document.createTextNode("Trạng thái"));
         cell.style.fontWeight = "bold";
+        cell.style.minWidth = "120px";
       } else {
         cell.appendChild(document.createTextNode(pagesFaultsArray[j - 1]));
         if (pagesFaultsArray[j - 1] == "✔") {
@@ -188,7 +193,7 @@ function tableGenerator(page, handledAnswer, isInitial) {
     document.getElementById("page").innerHTML = "📝Số trang: 0";
     document.getElementById("pageFaults").innerHTML = "🐞Số lỗi trang: 0";
     document.getElementById("hit").innerHTML = "📈Số hit ratio: 0";
-  } else countFaultsAndHit(pagesFaultsArray);
+  } else countFaultsAndHits(pagesFaultsArray);
 
   body.appendChild(mainTable);
 }
@@ -202,6 +207,8 @@ function interpretCode() {
 }
 
 function buttonRunAlgFIFO() {
+  document.getElementById("buttonRun").focus();
+
   let stringPage = document.querySelector("#inputPage").value;
   stringPage = stringPage.replace(/\s/g, "");
 
