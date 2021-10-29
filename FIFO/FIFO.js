@@ -107,7 +107,6 @@ function tableGenerator(page, handledAnswer, isInitial) {
   let tempFrames = 0;
   const body = document.body,
     mainTable = document.createElement("table");
-  // mainTable.style.width = "55%";
   mainTable.style.width = "1100px";
   mainTable.style.height = "300px";
   mainTable.style.textAlign = "center";
@@ -213,8 +212,6 @@ function interpretCode() {
 }
 
 function buttonRunAlgFIFO() {
-  document.getElementById("buttonRun").focus();
-
   let stringPage = document.querySelector("#inputPage").value;
   stringPage = stringPage.replace(/\s/g, "");
 
@@ -228,7 +225,7 @@ function buttonRunAlgFIFO() {
 
   if (pagesLength <= 0) alert("Không được bỏ trống dãy trang!");
   else if (frame <= 0) alert("Frame tối thiểu bằng 1!");
-  else if (pagesLength > 0 && frame > 0) {
+  else {
     document.querySelector("table").remove();
     interpretCode();
   }
