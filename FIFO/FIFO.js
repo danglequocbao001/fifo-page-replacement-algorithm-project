@@ -1,4 +1,5 @@
 let page = [7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1];
+
 let frame = 3;
 let pageFaults = 0,
   pagesLength = page.length,
@@ -90,17 +91,24 @@ async function handlePagesFaultsArray(handledAnswer) {
 }
 
 function countFaultsAndHits(pagesFaultsArray) {
-  let pageFaults = 0;
-  let pageHit = 0;
+  let hits = 0;
+  let faults = 0;
   for (let i = 0; i < pagesFaultsArray.length; i++) {
-    if (pagesFaultsArray[i] == "✔") pageHit++;
-    else pageFaults++;
+    if (pagesFaultsArray[i] == "✔") hits++;
+    else faults++;
   }
-  document.getElementById("page").innerHTML =
-    "📝Số trang: " + pagesFaultsArray.length;
-  document.getElementById("pageFaults").innerHTML =
-    "🐞Số lỗi trang: " + pageFaults;
-  document.getElementById("hit").innerHTML = "📈Số hit ratio: " + pageHit;
+  document.getElementById("page").innerHTML = `📝Số trang: ${pagesLength}`;
+  document.getElementById("perPage").innerHTML = `📄 Số trang riêng biệt: ${
+    [...new Set([...page])].length
+  }`;
+  document.getElementById("hits").innerHTML = `🎯Số hit: ${hits} (${parseFloat(
+    ((hits / pagesLength) * 100).toFixed(2)
+  )}%)`;
+  document.getElementById(
+    "faults"
+  ).innerHTML = `🐞Số lỗi trang: ${faults} (${parseFloat(
+    ((faults / pagesLength) * 100).toFixed(2)
+  )}%)`;
 }
 
 function tableGenerator(page, handledAnswer, isInitial) {
@@ -195,9 +203,12 @@ function tableGenerator(page, handledAnswer, isInitial) {
   }
 
   if (isInitial == true) {
-    document.getElementById("page").innerHTML = "📝Số trang: 0";
-    document.getElementById("pageFaults").innerHTML = "🐞Số lỗi trang: 0";
-    document.getElementById("hit").innerHTML = "📈Số hit ratio: 0";
+    document.getElementById("page").innerHTML = `📝Số trang: ${pagesLength}`;
+    document.getElementById("perPage").innerHTML = `📄 Số trang riêng biệt: ${
+      [...new Set([...page])].length
+    }`;
+    document.getElementById("hits").innerHTML = "🎯 Số hit: 0";
+    document.getElementById("faults").innerHTML = "🐞 Số lỗi trang: 0";
   } else countFaultsAndHits(pagesFaultsArray);
 
   body.appendChild(mainTable);
@@ -212,22 +223,26 @@ function interpretCode() {
 }
 
 function buttonRunAlgFIFO() {
-  let stringPage = document.querySelector("#inputPage").value;
-  stringPage = stringPage.replace(/\s/g, "");
+  try {
+    let stringPage = document.querySelector("#inputPage").value;
+    stringPage = stringPage.replace(/\s/g, "");
 
-  if (stringPage.charAt(0) == ",") stringPage = stringPage.substring(1);
-  if (stringPage.charAt(stringPage.length - 1) == ",")
-    stringPage = stringPage.substring(0, stringPage.length - 1);
+    if (stringPage.charAt(0) == ",") stringPage = stringPage.substring(1);
+    if (stringPage.charAt(stringPage.length - 1) == ",")
+      stringPage = stringPage.substring(0, stringPage.length - 1);
+    page = JSON.parse("[" + stringPage + "]");
 
-  page = JSON.parse("[" + stringPage + "]");
-  frame = parseInt(document.querySelector("#inputFrame").value);
-  (pageFaults = 0), (pagesLength = page.length), (pagesFaultsArray = ["✘"]);
+    frame = parseInt(document.querySelector("#inputFrame").value);
+    (pageFaults = 0), (pagesLength = page.length), (pagesFaultsArray = ["✘"]);
 
-  if (pagesLength <= 0) alert("Không được bỏ trống dãy trang!");
-  else if (frame <= 0) alert("Frame tối thiểu bằng 1!");
-  else {
-    document.querySelector("table").remove();
-    interpretCode();
+    if (pagesLength <= 0) alert("Không được bỏ trống dãy trang!");
+    else if (frame <= 0) alert("Frame tối thiểu bằng 1!");
+    else {
+      document.querySelector("table").remove();
+      interpretCode();
+    }
+  } catch (err) {
+    alert('Dãy trang chỉ bao gồm các số từ 0 đến 9 được ngăn cách bởi dấu ","');
   }
 }
 
