@@ -1,9 +1,12 @@
 Em chào thầy!
 
-Thầy có thể mở đồ án của em bằng cách truy cập trực tiếp vào
-live server: https://fifo-page-replacement.glitch.me/FIFO.html
+Em được thầy giao làm đề 7: Viết chương trình mô phỏng các giải
+thuật thay thế trang theo thuật toán FIFO. 
 
-hoặc mở file "FIFO.html" ngay trong folder này để chạy bằng local 
-host.
+Thầy có thể mở đồ án của em bằng cách truy cập vào live server tại
+link này: https://fifo-page-replacement.glitch.me/FIFO.html
+
+hoặc mở trực tiếp file "FIFO.html" ngay trong folder 
+fifo-page-replacement/FIFO.html để chạy bằng local host.
 
 Em cảm ơn thầy.
