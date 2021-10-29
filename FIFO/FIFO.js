@@ -242,7 +242,11 @@ function buttonRunAlgFIFO() {
       interpretCode();
     }
   } catch (err) {
-    alert('Dãy trang chỉ bao gồm các số từ 0 đến 9 được ngăn cách bởi dấu ","');
+    alert(
+      `Dãy trang chỉ bao gồm các số từ 0 đến 9 được ngăn cách bởi dấu ",". Hiện tại dãy trang đang dư một ký tự "${err.message.charAt(
+        17
+      )}"`
+    );
   }
 }
 
