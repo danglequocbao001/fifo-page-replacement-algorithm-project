@@ -1,1 +1,1 @@
-# https://page-replacement-fifo.glitch.me/FIFO.html
+# https://fifo-page-replacement.glitch.me/FIFO.html
