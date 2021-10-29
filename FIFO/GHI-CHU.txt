@@ -1,7 +1,7 @@
 Em chào thầy!
 
 Thầy có thể mở đồ án của em bằng cách truy cập trực tiếp vào
-live server: https://page-replacement-fifo.glitch.me/FIFO.html
+live server: https://fifo-page-replacement.glitch.me/FIFO.html
 
 hoặc mở file "FIFO.html" ngay trong folder này để chạy bằng local 
 host.
