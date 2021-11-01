@@ -50,6 +50,7 @@ async function PageReplacementFIFOAlgorithm() {
     }
     answer = answer.concat(elementsAnswer);
   }
+
   return answer;
 }
 
@@ -72,6 +73,7 @@ async function handleAnswerVariableTo2DArray(answer) {
     handledAnswer.push(tempHandledAnswer);
     tempHandledAnswer = [];
   }
+
   return handledAnswer;
 }
 
@@ -87,6 +89,7 @@ async function handlePagesFaultsArray(handledAnswer) {
       }
     }
   }
+
   return pagesFaultsArray;
 }
 
@@ -226,7 +229,6 @@ function buttonRunAlgFIFO() {
   try {
     let stringPage = document.querySelector("#inputPage").value;
     stringPage = stringPage.replace(/\s/g, "");
-
     if (stringPage.charAt(0) == ",") stringPage = stringPage.substring(1);
     if (stringPage.charAt(stringPage.length - 1) == ",")
       stringPage = stringPage.substring(0, stringPage.length - 1);
