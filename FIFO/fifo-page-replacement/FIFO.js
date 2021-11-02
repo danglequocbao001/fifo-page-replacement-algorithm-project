@@ -104,12 +104,12 @@ function countFaultsAndHits(pagesFaultsArray) {
   document.getElementById("perPage").innerHTML = `📄 Số trang riêng biệt: ${
     [...new Set([...page])].length
   }`;
-  document.getElementById("hits").innerHTML = `🎯Số hit: ${hits} (${parseFloat(
+  document.getElementById("hits").innerHTML = `🎯 Số hit: ${hits} (${parseFloat(
     ((hits / pagesLength) * 100).toFixed(2)
   )}%)`;
   document.getElementById(
     "faults"
-  ).innerHTML = `🐞Số lỗi trang: ${faults} (${parseFloat(
+  ).innerHTML = `🐞 Số lỗi trang: ${faults} (${parseFloat(
     ((faults / pagesLength) * 100).toFixed(2)
   )}%)`;
 }
